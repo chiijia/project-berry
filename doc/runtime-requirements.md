@@ -1,18 +1,14 @@
-# Project Specification – Dream Analyzer
+# Run-time Requirements
 
-## Overview
-This application is a simple web platform that allows users to input their dreams and receive interpretations.
+This project is a static website and is compatible with the following runtime environment:
 
-## Functional Requirements
-- Login/Register page
-- Dream input page
-- Keyword database for dream interpretation
-- Result display section
+## Hardware
+- PC or Mac with at least 4GB RAM
 
-## User Interface
-- HTML/CSS static pages
-- JavaScript for interactivity (typing effect, animations)
+## Software Requirements
+- Web browser: Chrome, Firefox, or Edge (latest version)
+- OS: Windows 10+, macOS 11+, or Ubuntu 20.04+
+- No additional installation is required
 
-## Technical Notes
-- No server-side code required in the demo version
-- Static website using only HTML/CSS/JS
+## Deployment
+The application can be viewed locally by opening `index.html` in a browser, or hosted on GitHub Pages.
