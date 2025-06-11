@@ -1,8 +1,8 @@
 <?php
 $host = "localhost";
 $dbname = "dream_analyzer";
-$username = "root";
-$password = "";
+$username = "dream_analyzer";
+$password = "open";
 try {
   $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

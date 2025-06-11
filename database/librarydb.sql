@@ -18,3 +18,10 @@ CREATE TABLE IF NOT EXISTS dreams (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+
+
+CREATE USER 'dream_analyzer'@'localhost' IDENTIFIED BY 'open';
+GRANT ALL PRIVILEGES ON dream_analyzer.* TO 'dream_analyzer'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;

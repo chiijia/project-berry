@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id'])) {
-  header("Location: login.php");
+  header("Location: ../page/login.php");
   exit();
 }
 ?>
@@ -10,12 +10,12 @@ if (!isset($_SESSION['user_id'])) {
 <head>
   <meta charset="UTF-8" />
   <title>Dream Analyzer</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <div class="container">
     <h1>🌙 Dream Analyzer</h1>
-    <p>Welcome, <?= htmlspecialchars($_SESSION['username']) ?> | <a href="logout.php">Logout</a> | <a href="history.php">View History</a></p>
+    <p>Welcome, <?= htmlspecialchars($_SESSION['username']) ?> | <a href="page/logout.php">Logout</a> | <a href="/page/history.php">View History</a></p>
     <textarea id="dreamInput" placeholder="Describe your dream here..."></textarea>
     <button id="analyzeBtn">Analyze</button>
     <div id="resultContainer">
@@ -46,7 +46,7 @@ if (!isset($_SESSION['user_id'])) {
         loading.textContent = "🔍 Analyzing your dream...";
         results.appendChild(loading);
 
-        fetch("analyze.php", {
+        fetch("/page/analyze.php", {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded"
