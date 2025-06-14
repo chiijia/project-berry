@@ -1,0 +1,118 @@
+Full Deployment Guide: Clone GitHub Project and Run on Raspberry Pi
+Prerequisites
+Make sure you have:
+- Raspberry Pi OS installed (or another Debian-based Linux)
+- Internet connection
+- Your project uploaded to GitHub
+- Access to the Raspberry Pi terminal
+
+1. Install Required Packages
+Open a terminal and run:
+sudo apt update
+sudo apt upgrade -y
+
+Install Apache, PHP, MariaDB, and Git:
+sudo apt install apache2 -y
+sudo apt install php php-mysql -y
+sudo apt install mariadb-server -y
+sudo apt install git -y
+
+2. Clone Your GitHub Project
+Navigate to the Apache web root:
+cd /var/www/html
+sudo rm index.html  # Remove default Apache welcome page
+
+Clone your repository (replace with your actual URL):
+sudo git clone https://github.com/your-username/your-repo.git
+
+Move the project files into the web root:
+sudo mv your-repo/* .
+sudo rm -r your-repo
+
+3. Set Up the Database
+Start MariaDB:
+sudo service mysql start
+
+Enter the MariaDB shell:
+sudo mysql
+
+Create a new database:
+CREATE DATABASE your_database_name;
+EXIT;
+
+Import your SQL file:
+sudo mysql your_database_name < /var/www/html/database.sql
+
+4. Update PHP Database Configuration
+
+Update your PHP config (e.g., config.php):
+$host = 'localhost';
+$dbname = 'your_database_name';
+$user = 'root';
+$pass = '';
+
+Fixing Access Denied Errors (if needed)
+
+If you get:
+SQLSTATE[HY000] [1698] Access denied for user 'root'@'localhost'
+
+Run:
+sudo mysql
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '';
+FLUSH PRIVILEGES;
+EXIT;
+
+5. Access Your Web Application
+
+In browser, go to:
+http://<your-raspberry-pi-ip>
+Example:
+http://192.168.1.100
+
+To find IP:
+hostname -I
+
+Optional: Fix Permissions
+sudo chown -R www-data:www-data /var/www/html
+sudo chmod -R 755 /var/www/html
+
+Network Issue: Unable to Connect to TKU Wi-Fi
+
+We found our Raspberry Pi could not connect to TKU Wi-Fi. We can’t find out the reason.
+Temporary Solution:
+We used a private hotspot or home Wi-Fi to continue development.
+
+To switch Wi-Fi:
+sudo raspi-config
+Go to: 1 System Options → S1 Wireless LAN
+
+How to Connect Raspberry Pi to TKU Wi-Fi or Personal Hotspot
+
+Option 1: TKU Wi-Fi (WPA2 Enterprise)
+
+Edit the config file:
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+
+Add:
+network={
+ssid="tku_wifi"
+key_mgmt=WPA-EAP
+eap=PEAP
+identity="your_student_id"
+password="your_password"
+phase2="auth=MSCHAPV2"
+}
+
+Restart Wi-Fi:
+sudo wpa_cli -i wlan0 reconfigure
+
+Check IP:
+ifconfig wlan0
+
+Option 2: Personal Hotspot
+
+1. Turn on phone hotspot
+2. Run: sudo raspi-config
+3. Go to: 1 System Options → S1 Wireless LAN
+4. Enter SSID and password
+5. Test with: ping google.com
