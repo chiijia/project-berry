@@ -1,0 +1,29 @@
+# project-berry
+A final project
+Dream Analyzer - Project Overview
+Dream Analyzer is a web-based application designed to help users record and analyze the content of their dreams. By identifying key emotional and thematic keywords, the system offers insights into patterns and underlying meanings within dreams.
+
+Project Motivation
+Our team members often have vivid and emotionally intense dreams, but there was no structured way to document or reflect on them. We developed Dream Analyzer to make it easy for users to log their dreams and use keyword analysis to better understand emotional trends and recurring themes.
+
+Key Features
+Dream Entry Form: Users can submit detailed descriptions of their dreams along with associated emotions.
+
+Emotion & Theme Analysis: The system detects and classifies keywords to analyze emotional tones (e.g., joy, anxiety) and common themes (e.g., escaping, falling, social interaction).
+
+Dream History: Users can browse and review their past dream entries.
+
+Basic Login System: Each user has their own private dream log.
+
+Technical Stack
+Frontend: HTML / CSS / JavaScript (no frameworks)
+
+Backend: PHP for form handling and analysis logic
+
+Database: MariaDB to store dreams and analysis results
+
+Platform: Deployed on Raspberry Pi Zero 2W using Apache Web Server
+
+Project Value
+Dream Analyzer is more than just a dream journal. It’s a tool for self-reflection and emotional awareness. By applying simple technologies, we aim to make the mysterious world of dreams more understandable and meaningful.
+
