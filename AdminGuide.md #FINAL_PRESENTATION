@@ -1,0 +1,40 @@
+Dream Analyzer - Admin Guide
+
+This document provides guidance for maintaining and configuring the Dream Analyzer application on Raspberry Pi Zero 2 W.
+
+Server Maintenance
+
+Check Service Status
+    sudo systemctl status apache2
+    sudo systemctl status mariadb
+
+Restart Services (if needed)
+    sudo systemctl restart apache2
+    sudo systemctl restart mariadb
+
+Database Maintenance
+
+Backup the Database
+    mysqldump -u root dreamdb > backup.sql
+
+Restore the Database
+    mysql -u root dreamdb < backup.sql
+
+Updating the Application
+If your project is managed via Git:
+    cd /var/www/html/
+    git pull origin main
+
+Admin Functionality (Optional)
+If you implemented an admin panel, access it via:
+    http://<your-raspberrypi-ip>/admin/
+
+Available features may include:
+- View all dream entries
+- Moderate or delete inappropriate content
+- Export dream logs for analysis
+
+Tips
+-Perform regular backups of your database
+-Avoid editing live PHP files directly—update through Git
+-Secure MariaDB if deployed publicly (set a password for root, etc.)
