@@ -1,0 +1,41 @@
+# Dream Analyzer - User Guide
+
+Welcome to **Dream Analyzer**, a web application for recording, tracking, and analyzing your dreams through keyword tagging and emotion classification.
+
+## Features for Users
+
+- Submit new dream records
+- View and search your past dreams
+- See emotional or thematic analysis of your dreams
+- Browse dreams by keyword or mood
+
+## How to Use the Application
+
+1. **Access the System**
+   - Open a browser and go to: `http://<your-raspberrypi-ip>/dream-analyzer`
+
+2. **Register**(for the first time)
+   - Type your username and password
+
+3.**Login**
+   - Type your username and passord
+
+4. **Submit a Dream**
+   - Find the blank "Describe your dream here"
+   - Fill in the dream title, dream content, and any keywords or emotions (Recommanded to type "I Dreamed that I was being chased by a snake")
+   - Click **Analyze** 
+
+5. **Interpretation Of Your Dreams**
+   - In the **“Interpretation”** section, view:
+   - The symbolization of your dream (eg sanke: Can represent hidden fears or transformation, chase: Symbolizes avoidance in real life)
+
+6. **View Dream History**
+   - Go to **“View History”**
+   - Filter dreams by date, time, dream content, keyword or emotion
+
+7. **Logout**
+   - click "Logout"
+
+
+## 📝 Notes
+- Best viewed on a desktop or tablet
