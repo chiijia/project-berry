@@ -1,80 +1,58 @@
-Full Deployment Guide: Clone GitHub Project and Run on Raspberry Pi
-Prerequisites
-Make sure you have:
-- Raspberry Pi OS installed (or another Debian-based Linux)
-- Internet connection
-- Your project uploaded to GitHub
-- Access to the Raspberry Pi terminal
+Dream Analyzer - Installation Instructions
 
-1. Install Required Packages
-Open a terminal and run:
-sudo apt update
-sudo apt upgrade -y
+This guide will help you install and set up the Dream Analyzer web application on a Raspberry Pi Zero 2 W.
 
-Install Apache, PHP, MariaDB, and Git:
-sudo apt install apache2 -y
-sudo apt install php php-mysql -y
-sudo apt install mariadb-server -y
-sudo apt install git -y
+System Requirements
+- Raspberry Pi Zero 2 W
+- Raspberry Pi OS (or any Debian-based Linux)
+- Apache2 HTTP Server
+- PHP 7.4+ with MySQL extension
+- MariaDB
+- Git
 
-2. Clone Your GitHub Project
-Navigate to the Apache web root:
-cd /var/www/html
-sudo rm index.html  # Remove default Apache welcome page
+Step-by-Step Installation
 
-Clone your repository (replace with your actual URL):
-sudo git clone https://github.com/your-username/your-repo.git
+1. Update the System
+    sudo apt update
+    sudo apt upgrade
 
-Move the project files into the web root:
-sudo mv your-repo/* .
-sudo rm -r your-repo
+2. Install Required Packages
+    sudo apt install apache2 php php-mysql mariadb-server git -y
 
-3. Set Up the Database
-Start MariaDB:
-sudo service mysql start
+3. Clone the Project Repository
+    cd ~
+    git clone https://github.com/yourusername/dream-analyzer.git
 
-Enter the MariaDB shell:
-sudo mysql
+4. Deploy Project to Web Server Directory
+    sudo cp -r dream-analyzer/* /var/www/html/
 
-Create a new database:
-CREATE DATABASE your_database_name;
-EXIT;
+5. Import the Database
+    sudo mariadb -u root
+    CREATE DATABASE dreamdb;
+    USE dreamdb;
+    SOURCE /var/www/html/database.sql;
+    EXIT;
 
-Import your SQL file:
-sudo mysql your_database_name < /var/www/html/database.sql
+6. Configure Database Connection
+Edit /var/www/html/config.php:
+    <?php
+    $host = "localhost";
+    $user = "root";
+    $password = "";
+    $dbname = "dreamdb";
+    $conn = new mysqli($host, $user, $password, $dbname);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    ?>
 
-4. Update PHP Database Configuration
+7. Access the Application
+    Open a browser and visit:
+    http://<your-raspberrypi-ip>/index.php
 
-Update your PHP config (e.g., config.php):
-$host = 'localhost';
-$dbname = 'your_database_name';
-$user = 'root';
-$pass = '';
+You're Done!
+You should now see the Dream Analyzer web interface.
 
-Fixing Access Denied Errors (if needed)
-
-If you get:
-SQLSTATE[HY000] [1698] Access denied for user 'root'@'localhost'
-
-Run:
-sudo mysql
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '';
-FLUSH PRIVILEGES;
-EXIT;
-
-5. Access Your Web Application
-
-In browser, go to:
-http://<your-raspberry-pi-ip>
-Example:
-http://192.168.1.100
-
-To find IP:
-hostname -I
-
-Optional: Fix Permissions
-sudo chown -R www-data:www-data /var/www/html
-sudo chmod -R 755 /var/www/html
 
 Network Issue: Unable to Connect to TKU Wi-Fi
 
