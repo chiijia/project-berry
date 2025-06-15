@@ -1,0 +1,73 @@
+# Schema Design – Dream Analyzer
+
+The application uses a **relational database (MariaDB)** to manage users and their dream records. Below is the schema breakdown:
+
+---
+
+## Database Name  
+```
+dream_analyzer
+```
+
+---
+
+## Table: `users`
+
+Stores registered user information.
+
+| Column     | Type          | Attributes                     | Description                      |
+|------------|---------------|--------------------------------|----------------------------------|
+| `id`       | INT           | PRIMARY KEY, AUTO_INCREMENT    | Unique user ID                   |
+| `username` | VARCHAR(255)  | UNIQUE, NOT NULL               | Username for login               |
+| `password` | VARCHAR(255)  | NOT NULL                       | Hashed password                  |
+
+ **Note**: Passwords are stored using `password_hash()` for security.
+
+---
+
+## Table: `dreams`
+
+Stores submitted dream records along with extracted keywords.
+
+| Column        | Type      | Attributes                         | Description                                  |
+|---------------|-----------|------------------------------------|----------------------------------------------|
+| `id`          | INT       | PRIMARY KEY, AUTO_INCREMENT        | Unique dream record ID                       |
+| `user_id`     | INT       | FOREIGN KEY REFERENCES `users(id)`| The user who submitted the dream             |
+| `description` | TEXT      | NOT NULL                           | Full dream text as described by the user     |
+| `keywords`    | TEXT      | NULLABLE                           | Extracted keywords (comma-separated)         |
+| `created_at`  | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP          | When the dream was submitted                 |
+
+ **Keyword Mapping**: Keywords like `"water"`, `"flying"`, `"death"` are detected in `analyze.php` and stored in the `keywords` field.
+
+---
+
+##  Database User (MariaDB)
+
+A dedicated MariaDB user is created for this system:
+
+```sql
+CREATE USER 'dream_analyzer'@'localhost' IDENTIFIED BY 'open';
+GRANT ALL PRIVILEGES ON dream_analyzer.* TO 'dream_analyzer'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+---
+
+##  Relationship Diagram
+
+```
+users (1) ────< dreams (many)
+```
+
+- One user can submit many dreams.
+- Each dream belongs to exactly one user.
+
+---
+
+##  Future Expansion Suggestions
+
+| Feature                    | Suggestion                                     |
+|---------------------------|------------------------------------------------|
+| Emotion tagging           | Add a new column `emotion VARCHAR(50)`         |
+| Keyword normalization     | Create a separate `keywords` table with many-to-many mapping |
+| Admin roles               | Add `role` column in `users` table             |
